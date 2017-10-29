@@ -1,4 +1,4 @@
-import com.hankcs.hanlp.corpus.dependency.CoNll.CoNLLWord;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,18 +22,18 @@ public class SearchNode {
         this.parent = node;
     }
 
-    public boolean match(CoNLLWord word,CoNLLWord parent) {
-        Matcher matcher = tag.matcher(word.POSTAG);
+    public boolean match(Word word,Word parent) {
+        Matcher matcher = tag.matcher(word.mPos);
         if ( !matcher.matches()){
             return false;
         }
         if(parent == null){
             return true;
         }
-        if (parent.ID-word.ID!=offset){
+        if (parent.mId-word.mId!=offset){
             return false;
         }
-        if(!relate.matcher(word.DEPREL).matches()){
+        if(!relate.matcher(word.mRelate).matches()){
             return false;
         }
         return true;
