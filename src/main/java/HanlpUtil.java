@@ -48,7 +48,7 @@ public class HanlpUtil {
             // System.out.println(content);
             JSONArray json = JSON.parseArray(content);
             return json.getJSONArray(0);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
