@@ -18,13 +18,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HanlpUtil {
+public class LTPUtil {
     private String apiKey = "z1L4K6O9L74CBdFDLxsywSxSjLmwTfSxhdYqTgjc";
     private MongoClient mongoClient = null;
     private MongoDatabase mongoDatabase;
     private MongoCollection<Document> collection;
 
-    public HanlpUtil() {
+    public LTPUtil() {
         try {
             mongoClient = new MongoClient("localhost", 27017);
             mongoDatabase = mongoClient.getDatabase("meituan");
@@ -40,7 +40,7 @@ public class HanlpUtil {
         try {
             OutputStream f = null;
             f = new FileOutputStream("1.txt");
-            f.write(getHanlpResultByLocalhost(text, "conll").getBytes());
+            f.write(getLTPResultByNetwork(text, "conll").getBytes());
             f.flush();
             f.close();
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class HanlpUtil {
 
     }
 
-    private String getHanlpResultByLocalhost(String text, String type) {
+    private String getLTPResultByNetwork(String text, String type) {
         String url = "http://api.ltp-cloud.com/analysis/?api_key=%s&pattern=all&text=%s&format=" + type;
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
@@ -67,7 +67,7 @@ public class HanlpUtil {
     }
 
     JSONArray parse(String text) {
-        JSONArray json = JSON.parseArray(getHanlpResultByLocalhost(text,"json"));
+        JSONArray json = JSON.parseArray(getLTPResultByNetwork(text,"json"));
         return json.getJSONArray(0);
     }
 
